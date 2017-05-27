@@ -1,0 +1,53 @@
+
+
+
+
+http://localhost:8080/OurAjaxRenderizacaoParcial
+
+
+http://localhost:8080/OurAjaxRenderizacaoParcial/index.jsp
+
+
+http://localhost:8080/OurAjaxRenderizacaoParcial/pages/Botao.xhtml
+
+
+http://localhost:8080/OurAjaxRenderizacaoParcial/pages/Botao1.xhtml
+
+
+http://localhost:8080/OurAjaxRenderizacaoParcial/pages/Botao2.xhtml
+
+
+http://localhost:8080/OurAjaxRenderizacaoParcial/pages/Botao3.xhtml
+
+
+http://localhost:8080/OurAjaxRenderizacaoParcial/pages/Evento.xhtml
+
+
+http://localhost:8080/OurAjaxRenderizacaoParcial/pages/Evento1.xhtml
+
+
+http://localhost:8080/OurAjaxRenderizacaoParcial/pages/MeusDoisFormularios.xhtml
+
+http://localhost:8080/OurAjaxRenderizacaoParcial/pages/ListaUpdates.xhtml
+
+
+=====================================================================
+
+<p:commandButton  value="Inverter" action="#{inversaoNomeBean.inverter()}" />	==> como o default eh ajax=true a requisicao sera enviada
+ou seja o metodo sera executado mas nao teremos atualizacao da pagina porque nao foi especificado com update="nomeInvertido".Veja abaixo:
+
+
+<p:commandButton  value="Inverter" action="#{inversaoNomeBean.inverter()}" update="nomeInvertido"/>	 "nomeInvertido" ==> id do tipo servidor
+
+<p:commandButton  value="Inverter" action="#{inversaoNomeBean.inverter()}" update="frm:nomeInvertido"/>	 "frm:nomeInvertido" ==> id do tipo cliente
+
+
+OBSERVACAO: usamos ":frm:nomeInvertido" quando queremos nos referir a um outro componente em outro formulario veja os dois pontos ":frm:..."
+OBSERVACAO: o componete h:form eh um name-conteiner por isso seu ID faz parte do id dos outros componentes, voce pode comprovar isso
+observando o codigo html gerado.Exemplo: frm:nome , frm:pnl
+=====================================================================
+
+<p:inputText value="#{inversaoNomeBean.nome}" id="nome" >
+ <p:ajax listener="#{inversaoNomeBean.inverter()}" update=":frm2:nomeInvertido" event="change"/> update=":frm2:nomeInvertido" ==> os dois pontos sao
+ </p:inputText>                                                                                  necessarios pois o componente que se quer
+                                                                                                 atualizar encontra-se no outro formualrio.
